@@ -5,16 +5,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChartComponent } from './components/chart/chart.component';
 import { IndexManagementComponent } from './components/index-management/index-management.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {HttpClientModule} from '@angular/common/http';
+import {SearchSymbolComponent} from './components/search-symbol/search-symbol.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChartComponent,
-    IndexManagementComponent
+    IndexManagementComponent,
+    SearchSymbolComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
