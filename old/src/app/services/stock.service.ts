@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { lastValueFrom } from 'rxjs';
 
 export const TOKEN = "pk_4899c148e67e41058ddb883073a65c29";
 
@@ -14,9 +13,7 @@ export class StockService {
   constructor(private httpClient: HttpClient) {}
 
   async getSymbols(): Promise<ISymbol[]> {
-    const rawSymbols = await lastValueFrom(this.httpClient.get<any[]>(
-      `${this.BASE_URL}/ref-data/symbols?token=${this.TOKEN}`
-    ));
+    const rawSymbols = await this.httpClient.get<any[]>(`${this.BASE_URL}/ref-data/symbols?token=${this.TOKEN}`).toPromise();
 
     const symbols = rawSymbols.filter((rawSymbol) => rawSymbol.isEnabled).map((rawSymbol) => {
       return {
@@ -30,7 +27,7 @@ export class StockService {
   }
 
   getStockHistoryPrices(symbol:string) : Promise<any> {
-    return lastValueFrom(this.httpClient.get<any[]>(`${this.BASE_URL}/stock/${symbol}/chart/3m/symbols?token=${this.TOKEN}`));
+    return this.httpClient.get<any[]>(`${this.BASE_URL}/stock/${symbol}/chart/3m/symbols?token=${this.TOKEN}`).toPromise();
 
   }
 }
